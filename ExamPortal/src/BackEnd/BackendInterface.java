@@ -469,5 +469,44 @@ public class BackendInterface
         }
         return false;
     }
+    public static String[] getdetails(int i)
+    {
+        String[] StudentDetail = {"","","","","","","","","","",""};
+        try {
+            String driver1 = "com.mysql.cj.jdbc.Driver";
+            String databaseUrl1 = "jdbc:mysql://localhost:3306/studentdb";
+            String DBusername1 = "root";
+            String DBpass1 = "1234";
 
+            Class.forName(driver1);
+
+            Connection conn = DriverManager.getConnection(databaseUrl1, DBusername1, DBpass1);
+
+            Statement st1 = conn.createStatement();
+            String query1 = "SELECT * FROM studentinfo WHERE StudentIndex="+i;
+            PreparedStatement p1 = conn.prepareStatement(query1);
+            ResultSet rs = st1.executeQuery(query1);
+
+            while (rs.next())
+            {
+                StudentDetail[0]=rs.getString("StudentName");
+                StudentDetail[1]=rs.getString("StudentRegNo");
+                StudentDetail[2]=rs.getString("RegisteredExam1");
+                StudentDetail[3]=rs.getString("StudentRoom1");
+                StudentDetail[4]=rs.getString("StudentSeat1");
+                StudentDetail[5]=rs.getString("RegisteredExam2");
+                StudentDetail[6]=rs.getString("StudentRoom2");
+                StudentDetail[7]=rs.getString("StudentSeat2");
+                StudentDetail[8]=rs.getString("RegisteredExam3");
+                StudentDetail[9]=rs.getString("StudentRoom3");
+                StudentDetail[10]=rs.getString("StudentSeat3");
+            }
+            return (StudentDetail);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return (StudentDetail);
+    }
 }
